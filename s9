@@ -1,0 +1,9 @@
+#!/bin/bash
+cd ~/Desktop/MalwareDetectionLab
+unzip -o -q WeirdScience.zip
+cd WeirdScience
+curl -s -O https://raw.githubusercontent.com/mikeptwa-hash/csi6199-m7-lab/main/rules1.txt
+curl -s -O https://raw.githubusercontent.com/mikeptwa-hash/csi6199-m7-lab/main/rules2.txt
+curl -s -O https://raw.githubusercontent.com/mikeptwa-hash/csi6199-m7-lab/main/rules3.txt
+echo "=== WeirdScience contents ==="
+ls
