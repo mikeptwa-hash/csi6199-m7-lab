@@ -1,0 +1,13 @@
+#!/bin/bash
+cd ~/Desktop/MalwareDetectionLab/NoPwnZone
+KEY=$(strings E*/K*/R* | grep -m1 "BEGIN PUBLIC KEY")
+echo "=== Key extracted from RansomwareSample.exe ==="
+echo "$KEY"
+cp virusdefs_v2023.txt virusdefs_updated.txt
+printf '\nrule RansomwareA_Key\n{\n    meta:\n        description = "Detects RansomwareA variants by shared public key"\n    strings:\n        $k = "%s"\n    condition:\n        $k\n}\n' "$KEY" >> virusdefs_updated.txt
+echo ""
+echo "=== Scan with UPDATED definitions ==="
+yara -r virusdefs_updated.txt E*/
+echo ""
+echo "=== RansomwareA hits only ==="
+yara -r virusdefs_updated.txt E*/ | grep Ransomware
