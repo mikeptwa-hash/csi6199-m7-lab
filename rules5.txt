@@ -1,0 +1,71 @@
+rule PossibleAstronomers
+{
+    meta:
+        description = "astronomer or drake"
+        threat_level = 5
+    strings:
+        $a = "astronomer"
+        $b = "drake"
+        $c = "Drake"
+    condition:
+        $a or $b or $c
+}
+
+rule AstronomicalContent
+{
+    meta:
+        description = "star, galaxy, orion or vega in any case"
+        threat_level = 10
+    strings:
+        $a = "star" nocase
+        $b = "galaxy" nocase
+        $c = "orion" nocase
+        $d = "vega" nocase
+    condition:
+        any of them
+}
+
+rule LatinThinkers
+{
+    meta:
+        description = "latin words, files over 600 bytes only"
+        threat_level = 7
+    strings:
+        $a = "vitae"
+        $b = "dicta"
+        $c = "exercitationem"
+        $d = "nostrum"
+        $e = "voluptate"
+    condition:
+        any of them and filesize > 600
+}
+
+rule Scientists
+{
+    meta:
+        description = "scientist names, only together with AstronomicalContent"
+        threat_level = 20
+    strings:
+        $a = "Achimedes"
+        $b = "Archimedes"
+        $c = "Newton"
+        $d = "Euclid"
+        $e = "Einstein"
+        $f = "Hawking"
+    condition:
+        any of them and AstronomicalContent
+}
+
+rule PossibleScienceContent
+{
+    meta:
+        description = "science words in files under 500 bytes not already AstronomicalContent"
+        threat_level = 50
+    strings:
+        $a = "gravity"
+        $b = "intelligence"
+        $c = "brain"
+        $d = "energy"
+    condition:
+        any of them and filesize < 500 and not AstronomicalContent
+}
