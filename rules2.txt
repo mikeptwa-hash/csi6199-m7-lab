@@ -1,0 +1,13 @@
+rule silent_banker : PossibleAstronomer
+{
+    meta:
+        description = "Detects astronomer or drake (any case for drake)"
+        threat_level = 5
+        in_the_wild = true
+    strings:
+        $a = "astronomer"
+        $b = "drake"
+        $c = "Drake"
+    condition:
+        $a or $b or $c
+}
