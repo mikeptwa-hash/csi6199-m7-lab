@@ -1,0 +1,26 @@
+rule PossibleAstronomers
+{
+    meta:
+        description = "astronomer or drake"
+        threat_level = 5
+    strings:
+        $a = "astronomer"
+        $b = "drake"
+        $c = "Drake"
+    condition:
+        $a or $b or $c
+}
+
+rule AstronomicalContent
+{
+    meta:
+        description = "star, galaxy, orion or vega in any case"
+        threat_level = 10
+    strings:
+        $a = "star" nocase
+        $b = "galaxy" nocase
+        $c = "orion" nocase
+        $d = "vega" nocase
+    condition:
+        any of them
+}
