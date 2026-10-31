@@ -1,0 +1,11 @@
+rule silent_banker : PossibleAstronomer
+{
+    meta:
+        description = "Detects the word astronomer"
+        threat_level = 5
+        in_the_wild = true
+    strings:
+        $a = "astronomer"
+    condition:
+        $a
+}
